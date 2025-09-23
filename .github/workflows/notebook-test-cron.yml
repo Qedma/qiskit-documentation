@@ -35,6 +35,7 @@ jobs:
         run: tox -- --write --test-strategy hardware
 
       - name: Normalize notebooks
+        if: "!cancelled()"
         run: tox -e fix
 
       - name: Detect changed notebooks
@@ -63,7 +64,7 @@ jobs:
             This PR updates all notebooks that ran successfully with the new cell outputs.
             > [!NOTE]
             > This pull request was created by a GitHub action." \
-           --reviewer frankharkins
+           --reviewer kaelynj
 
       - name: Upload executed notebooks
         if: "!cancelled()"

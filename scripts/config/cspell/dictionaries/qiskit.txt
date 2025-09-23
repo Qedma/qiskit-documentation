@@ -12,6 +12,9 @@ Ansaetze
 Ansätze
 BFGS
 CCSD
+CASCI
+CASSCF
+Coprime
 Bigl
 Biggl
 Bigr
@@ -38,12 +41,15 @@ Dcomplex
 Dequantization
 Deutsches
 Diagonalization
+DMRGCI
 EPLG
 Eigensolver
 Eigensolvers
 Eigenspace
 Elektronen
+expressibility
 Factorizers
+FCIDUMP
 Fieldr
 Hadamard
 Hamiltonians
@@ -98,6 +104,7 @@ RCCX
 SKQD
 SLSQP
 SPSA
+SHCI
 Shinjo
 SSVQE
 StarPrerouting
@@ -110,6 +117,7 @@ Superoperator
 Superoxide
 Symegine
 TOQM
+Transformative
 Transpilations
 Trotterization
 Trotterizations
@@ -391,3 +399,5 @@ resilienece
 webkitallowfullscreen
 photoresistor
 photoresistors
+pdfs
+pdf

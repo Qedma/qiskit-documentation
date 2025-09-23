@@ -117,6 +117,51 @@ const ALWAYS_IGNORED_URLS__EXPECTED = [
   "https://www.eon.com/en/about-us/media/press-release/2021/2021-09-02-eon-allies-with-ibm-quantum.html",
   "https://quantumcomputing.stackexchange.com/questions/tagged/qiskit",
   "https://quantumcomputing.stackexchange.com/questions/tagged/ibm-q-experience",
+  "https://onlinelibrary.wiley.com/doi/epdf/10.1002/ijch.202100111",
+  "https://pubs.acs.org/doi/10.1021/acs.jpcb.5c01030",
+  "https://wires.onlinelibrary.wiley.com/doi/10.1002/wcms.1519",
+  "https://github.com/Qiskit/qiskit-terra/issues/5775",
+  "https://docs.python-requests.org/en/latest/api/",
+  "https://github.com/Qiskit/qiskit-terra/issues/9552",
+  "https://www.ibm.com/downloads/cas/8QDGKDZJ",
+  "https://www.ibm.com/downloads/cas/BDGQRXOZ",
+  "https://www.iotworldtoday.com/smart-cities/ibm-panel-highlights-quantum-role-in-sustainability",
+  "https://journals.aps.org/prxquantum/pdf/10.1103/PRXQuantum.3.010313",
+  "https://pubs.acs.org/doi/full/10.1021/acs.jctc.8b00450",
+  "https://ibm.box.com/shared/static/59c2kjqefvjy5wy5lct099thr4y0ry8c.zip",
+  "https://ibm.box.com/s/fh3xele1e7k0nrgd1imivvq52hy3wz9c",
+  "https://dl.acm.org/doi/10.1145/359340.359342",
+  "https://pubs.aip.org/aip/jap/article/132/16/160902/2837574/The-future-of-quantum-computing-with",
+  "https://csrc.nist.gov/glossary/term/security_strength",
+  "https://csrc.nist.gov/news/2023/three-draft-fips-for-post-quantum-cryptography",
+  "https://csrc.nist.gov/pubs/fips/205/ipd",
+  "https://dl.acm.org/doi/10.1145/237814.237838",
+  "https://doi.org/10.1080/07468342.1987.11973000",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4878865/",
+  "https://dl.acm.org/doi/10.1145/237814.237866",
+  "https://doi.org/10.1137/S0097539795293172",
+  "https://doi.org/10.1063/5.0082975",
+  "https://doi.org/10.1145/359340.359342",
+  "https://doi.org/10.1137/S0097539795293172",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.140503",
+  "https://doi.org/10.1145/276698.276705",
+  "https://doi.org/10.1145/237814.237838",
+  "https://ibm.box.com/shared/static/vee9e1kkxxiih5g8yqdhoo6t0o3dw7xf.zip",
+  "https://ibm.box.com/shared/static/vee9e1kkxxiih5g8yqdhoo6t0o3dw7xf.zip",
+  "https://ibm.box.com/shared/static/a0zgies7bh91hm2lwev9o0bfeybxc6n6.zip",
+  "https://ibm.box.com/shared/static/3s99zptw6c7nrfzmneogs4y7ezrx5nbh.zip",
+  "https://ibm.box.com/shared/static/ruz8wf353hncenmaywjlfjilflaumnzt.zip",
+  "https://ibm.box.com/shared/static/tg8vv00ern2bmxmm033xt9oe0fcvwamc.zip",
+  "https://ibm.box.com/shared/static/pnb9vhw1ruz72r3wp4pwfilwc7rzmufw.zip",
+  "https://ibm.box.com/shared/static/0hvvgr1gnwx64x2ukgk04sss6sxc4zko.zip",
+  "https://ibm.box.com/shared/static/srgnll6u8ame7gk186pkthq7erc7l6rw.zip",
+  "https://ibm.box.com/s/kzzsmxhw38vph1ioohczaet53euwi310",
+  "https://ibm.box.com/shared/static/ws8x00xu0pksjzixyyspxzrilvt36iff.zip",
+  "https://ibm.box.com/shared/static/k38xhk5yaqy9b3gjdmu0ynhnd9i4c3e1.zip",
+  "https://ibm.box.com/s/bipgoms7gr6b6vhkoc1uw6oi4wsanfoq",
+  "https://ibm.box.com/shared/static/fw1538dogvyv0qbfqg8tan1k2fs27mfv.zip",
+  "https://ibm.box.com/s/blnffu0pd7yzxarq3zc3w0jv90365ny2",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.85.441",
 ];
 
 // These external URLs cause actual 404s and should probably be fixed.
@@ -147,28 +192,8 @@ function _addonsObjectsInvRegexes(): string[] {
   );
 }
 
-function _runtimeObjectsInvRegexes(): string[] {
-  // Runtime has non-API docs in their Sphinx build that translate into invalid links
-  // we should ignore
-  return [
-    "errors",
-    "migrate",
-    "cloud",
-    "faqs",
-    "index",
-    "sessions",
-    "primitives",
-    "compare",
-    "retired",
-  ].map(
-    (path) =>
-      `\/api\/qiskit-ibm-runtime\/(0.16|0.15|0.14)\/${path}(\/.*|#.*|$)`,
-  );
-}
-
 export const ALWAYS_IGNORED_URL_REGEXES: string[] = [
   ..._addonsObjectsInvRegexes(),
-  ..._runtimeObjectsInvRegexes(),
 ];
 
 // -----------------------------------------------------------------------------------
@@ -200,25 +225,12 @@ function mergeFilesToIgnores(...mappings: FilesToIgnores[]): FilesToIgnores {
 
 function _runtimeObjectsInv(): FilesToIgnores {
   const legacy = Object.fromEntries(
-    ["0.16/", "0.17/", "0.18/", "0.19/", "0.20/", "0.21/", "0.22/"].map(
-      (vers) => [
-        `public/docs/api/qiskit-ibm-runtime/${vers}objects.inv`,
-        [
-          `/docs/api/qiskit-ibm-runtime/${vers}index#next-steps`,
-          `/docs/api/qiskit-ibm-runtime/${vers}index#qiskit-runtime-version-api-docs-preview`,
-        ],
+    ["0.25/", "0.26/", "0.27/", "0.28/", "0.29/"].map((vers) => [
+      `public/docs/api/qiskit-ibm-runtime/${vers}objects.inv`,
+      [
+        `/docs/api/qiskit-ibm-runtime/${vers}index#qiskit-runtime-version-api-docs-preview`,
       ],
-    ),
-  );
-  const legacy2 = Object.fromEntries(
-    ["0.23/", "0.24/", "0.25/", "0.26/", "0.27/", "0.28/", "0.29/"].map(
-      (vers) => [
-        `public/docs/api/qiskit-ibm-runtime/${vers}objects.inv`,
-        [
-          `/docs/api/qiskit-ibm-runtime/${vers}index#qiskit-runtime-version-api-docs-preview`,
-        ],
-      ],
-    ),
+    ]),
   );
   const latest = Object.fromEntries(
     [
@@ -234,6 +246,7 @@ function _runtimeObjectsInv(): FilesToIgnores {
       "0.37/",
       "0.38/",
       "0.39/",
+      "0.40/",
     ].map((vers) => [
       `public/docs/api/qiskit-ibm-runtime/${vers}objects.inv`,
       [
@@ -241,14 +254,14 @@ function _runtimeObjectsInv(): FilesToIgnores {
       ],
     ]),
   );
-  return { ...legacy, ...legacy2, ...latest };
+  return { ...legacy, ...latest };
 }
 
 function _qiskitUtilsData(): FilesToIgnores {
   // Qiskit docs used .. py:data:: incorrectly. We didn't fix these versions of the docs
   // because it is too tedious.
   const objectsInv = Object.fromEntries(
-    ["0.45/", "1.0/", "1.1/"].map((vers) => [
+    ["1.0/", "1.1/"].map((vers) => [
       `public/docs/api/qiskit/${vers}objects.inv`,
       [
         `/docs/api/qiskit/${vers}utils#qiskit.utils.optionals.HAS_AER`,
@@ -288,21 +301,7 @@ function _qiskitUtilsData(): FilesToIgnores {
     ]),
   );
   const utilsFile = Object.fromEntries(
-    [
-      "0.35",
-      "0.36",
-      "0.37",
-      "0.38",
-      "0.39",
-      "0.40",
-      "0.41",
-      "0.42",
-      "0.43",
-      "0.44",
-      "0.45",
-      "1.0",
-      "1.1",
-    ].map((vers) => [
+    ["1.0", "1.1"].map((vers) => [
       `docs/api/qiskit/${vers}/utils.mdx`,
       [
         "#qiskit.utils.optionals.HAS_TESTTOOLS",
@@ -311,10 +310,15 @@ function _qiskitUtilsData(): FilesToIgnores {
       ],
     ]),
   );
+
+  const releaseNotesFile = Object.fromEntries(
+    ["1.0", "1.1"].map((vers) => [
+      `docs/api/qiskit/release-notes/${vers}.mdx`,
+      [`/docs/api/qiskit/${vers}/utils#qiskit.utils.optionals.HAS_SYMENGINE`],
+    ]),
+  );
   return {
-    "docs/api/qiskit/release-notes/1.0.mdx": [
-      "/docs/api/qiskit/1.0/utils#qiskit.utils.optionals.HAS_SYMENGINE",
-    ],
+    ...releaseNotesFile,
     ...objectsInv,
     ...utilsFile,
   };
@@ -324,7 +328,7 @@ function _patternsReorg(): FilesToIgnores {
   // We have redirects for all these files. It's best to update API docs to point directly to the new URL,
   // but we don't bother updating old docs.
   const qiskit = Object.fromEntries(
-    ["", "0.45/", "0.46/", "1.0/", "1.1/", "1.2/"].flatMap((vers) => [
+    ["", "0.46/", "1.0/", "1.1/", "1.2/"].flatMap((vers) => [
       [
         `docs/api/qiskit/${vers}qiskit.circuit.QuantumCircuit.mdx`,
         ["/docs/build/circuit-construction"],
@@ -337,7 +341,7 @@ function _patternsReorg(): FilesToIgnores {
     ]),
   );
   const runtime = Object.fromEntries(
-    [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26].flatMap((vers) => [
+    [25, 26].flatMap((vers) => [
       [
         `docs/api/qiskit-ibm-runtime/0.${vers}/batch.mdx`,
         ["/docs/run/run-jobs-batch", "/docs/run/max-execution-time"],
@@ -397,40 +401,12 @@ function _patternsReorg(): FilesToIgnores {
   };
 }
 
-function _legacyQiskitSDKIssues(): FilesToIgnores {
-  // These are all issues due to quirks in our old docs. They
-  // are all safe to ignore and not worth the effort to fix.
-
-  // The module page is missing the expected anchor, even in the original Sphinx. However,
-  // the page is small enough that the link to the transpile function is easy to access.
-  const transpileAnchor = Object.fromEntries(
-    ["37", "38", "39", "40", "41", "42", "43"].map((vers) => [
-      `docs/api/qiskit/0.${vers}/qiskit.transpiler.preset_passmanagers.generate_preset_pass_manager.mdx`,
-      ["compiler#qiskit.compiler.transpile"],
-    ]),
-  );
-  // The capitalization of the anchor link changes between the class page and the referring
-  // page, and it's inconsistent in the original Sphinx. However, it doesn't matter
-  // because the anchor is at the top of the page anyways.
-  const pulseLibraryAnchorCapitalization = Object.fromEntries(
-    ["37", "38", "39", "40", "41", "42"].flatMap((vers) => [
-      [
-        `docs/api/qiskit/0.${vers}/qiskit.pulse.library.gaussian_square.mdx`,
-        ["qiskit.pulse.library.gaussian#qiskit.pulse.library.gaussian"],
-      ],
-      [
-        `docs/api/qiskit/0.${vers}/pulse.mdx`,
-        [
-          "qiskit.pulse.library.constant#qiskit.pulse.library.constant",
-          "qiskit.pulse.library.gaussian#qiskit.pulse.library.gaussian",
-          "qiskit.pulse.library.drag#qiskit.pulse.library.drag",
-        ],
-      ],
-    ]),
-  );
+function _runtimeLegacyReleaseNotes(): FilesToIgnores {
   return {
-    ...transpileAnchor,
-    ...pulseLibraryAnchorCapitalization,
+    "docs/api/qiskit-ibm-runtime/release-notes.mdx": [
+      "/docs/api/qiskit-ibm-runtime/0.21/qiskit-runtime-service#runtime",
+      "/docs/api/qiskit-ibm-runtime/0.20/sampler#run",
+    ],
   };
 }
 
@@ -438,10 +414,10 @@ const FILES_TO_IGNORES__EXPECTED: FilesToIgnores = mergeFilesToIgnores(
   _qiskitUtilsData(),
   _patternsReorg(),
   _runtimeObjectsInv(),
-  _legacyQiskitSDKIssues(),
+  _runtimeLegacyReleaseNotes(),
 );
 
-function _qiskitCObjectsInvRegexes(): FilesToIgnores {
+function _qiskitCRegexes(): FilesToIgnores {
   return {
     "public/docs/api/qiskit-c/objects.inv": [
       "/docs/api/qiskit-c/qk-complex-64#qk_complex64_from_native",
@@ -457,13 +433,27 @@ function _qiskitCObjectsInvRegexes(): FilesToIgnores {
       "/docs/api/qiskit-c/qk-complex-64#structqkcomplex64",
       "/docs/api/qiskit-c/qk-complex-64#structqkcomplex64_1a1d0477d0d30b088dfd322e85b4be5464",
       "/docs/api/qiskit-c/qk-complex-64#structqkcomplex64_1ae08ef5279f405357144d24ec1147b5f9",
+      "/docs/api/qiskit-c/version#qiskit_version_patch",
+      "/docs/api/qiskit-c/version#qiskit_version_minor",
+      "/docs/api/qiskit-c/version#qiskit_version_major",
+      "/docs/api/qiskit-c/version#qiskit_version_hex",
+      "/docs/api/qiskit-c/version#qiskit_version",
+      "/docs/api/qiskit-c/version#qiskit_release_serial",
+      "/docs/api/qiskit-c/version#qiskit_release_level",
+      "/docs/api/qiskit-c/version#qiskit_get_version_hex",
+    ],
+    "docs/api/qiskit-c/qk-transpiler.mdx": [
+      "#_cppv412qk_transpilepk9qkcircuitpk8qktargetpk18qktranspileoptionsp17qktranspileresultppc",
+      "#structqktranspileoptions",
+    ],
+    "docs/api/qiskit-c/qk-vf-2-layout-result.mdx": [
+      "qk-transpiler-passes#_cppv440qk_transpiler_pass_standalone_vf2_layoutpk9qkcircuitpk8qktargetb7int64_td7int64_t",
     ],
   };
 }
 
-const FILES_TO_IGNORES__SHOULD_FIX: FilesToIgnores = mergeFilesToIgnores(
-  _qiskitCObjectsInvRegexes(),
-);
+const FILES_TO_IGNORES__SHOULD_FIX: FilesToIgnores =
+  mergeFilesToIgnores(_qiskitCRegexes());
 
 export const FILES_TO_IGNORES: FilesToIgnores = mergeFilesToIgnores(
   FILES_TO_IGNORES__EXPECTED,

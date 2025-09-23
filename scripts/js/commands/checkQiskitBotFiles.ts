@@ -29,7 +29,6 @@ const ALLOWED_OWNERLESS_FILES = new Set([
   "docs/guides/using-ibm-quantum-simulators",
   "docs/guides/circuit-execution",
   "docs/guides/configure-runtime-compilation",
-  "docs/guides/native-gates",
   "docs/guides/save-jobs",
   "docs/guides/visualize-results",
   "docs/guides/create-transpiler-plugin",
@@ -47,11 +46,7 @@ const ALLOWED_OWNERLESS_FILES = new Set([
 
 const ALLOWED_NONEXISTENT_FILES: Set<string> = new Set([]);
 
-const GLOBS = [
-  "docs/{guides,tutorials}/*",
-  "docs/migration-guides/*",
-  "learning/**/*.{ipynb,mdx}",
-];
+const GLOBS = ["{docs,learning}/**/*.{ipynb,mdx}", "!docs/api/**/*"];
 
 async function main() {
   const qiskitBotFiles = await getQiskitBotFiles();
